@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, request
 import os
 from our_functions.coordinates import get_coordinates
-from our_functions.zaken import create_zaak, get_all_zaken
+from our_functions.zaken import create_zaak, create_zaak_table, get_all_zaken
 import folium
 
 
@@ -12,10 +12,12 @@ UPLOAD_FOLDER = 'data'
 app.config['UPLOAD_FOLDER'] =  UPLOAD_FOLDER
 
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
+    create_zaak_table()
     if request.method == 'POST':
-        create_zaak()
+        naam = request.form.get('naam')
+        create_zaak(naam)
     zaken = get_all_zaken()
     return render_template('index.html', zaken=zaken)
 
