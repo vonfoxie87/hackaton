@@ -4,5 +4,9 @@
 {% block content %}
     <h1>{% block title %} Index {% endblock %}</h1>
 
-test
+    {% if zaken == "" %}
+        {{ zaken }}
+    {% else %}
+        Er zijn nog geen zaken toegevoegd
+    {% endif %}
 {% endblock %}
