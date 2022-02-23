@@ -10,4 +10,3 @@ def get_coordinates():
     df_list = list(df_records)
 
     return df_list
-
