@@ -16,7 +16,7 @@ app.config['UPLOAD_FOLDER'] =  UPLOAD_FOLDER
 def index():
     create_zaak_table()
     if request.method == 'POST':
-        naam = request.form.get('naam')
+        naam = request.form.get('naam_zaak')
         create_zaak(naam)
     zaken = get_all_zaken()
     return render_template('index.html', zaken=zaken)

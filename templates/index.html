@@ -6,13 +6,15 @@
 
     <div class="col-md-12" style="margin-top: 25px;">
         <form action="/" method="POST" name="create-zaak">
-            <input class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zaak in" aria-label=".form-control-lg example">
+            <input name="naam_zaak" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zaak in" aria-label=".form-control-lg example">
             <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
         </form>
     </div>
 
-    {% if zaken == "" %}
-        {{ zaken }}
+    {% if zaken %}
+        {% for zaak in zaken %}
+        <p>{{ zaak[0] }}</p>
+        {% endfor %}
     {% else %}
         Er zijn nog geen zaken toegevoegd
     {% endif %}
