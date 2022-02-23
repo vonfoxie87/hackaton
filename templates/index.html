@@ -4,9 +4,21 @@
 {% block content %}
     <h1>{% block title %}Overzicht zaken{% endblock %}</h1>
 
+    <div class="col-md-12" style="margin-top: 25px;">
+        <form method="POST" name="create-zaak">
+            <input class="form-control form-control-lg" name="naam_zaak" type="text" placeholder="Voer een nieuwe zaak in" aria-label=".form-control-lg example">
+            <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
+        </form>
+    </div>
+
     {% if zaken == "" %}
         {{ zaken }}
     {% else %}
         Er zijn nog geen zaken toegevoegd
     {% endif %}
+
+    {% for zaken in zaken %}
+        {{ zaken[0] }}
+    {% endfor %}
 {% endblock %}
+
