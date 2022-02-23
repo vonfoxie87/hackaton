@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 from our_functions.coordinates import get_coordinates
 import folium
 
@@ -11,9 +11,8 @@ def hello_world():
     middle = (len(coordinaten))
     middle = int(middle / 2)
     print(middle)
-    start_coords = coordinaten[0]
+    start_coords = coordinaten[middle]
     folium_map = folium.Map(location=start_coords, zoom_start=17)
-
 
     folium.Marker(
         location=coordinaten[0],
@@ -22,10 +21,9 @@ def hello_world():
     ).add_to(folium_map)
     folium_map
 
-
     folium.Marker(
         location=coordinaten[-1],
-        popup="Start",
+        popup="Eind",
         icon=folium.Icon(color="red"),
     ).add_to(folium_map)
     folium_map
@@ -43,5 +41,6 @@ def hello_world():
 
 
 
-# set FLASK_APP=hello
+# set FLASK_APP=app
 # set FLASK_ENV=development
+# flask run
