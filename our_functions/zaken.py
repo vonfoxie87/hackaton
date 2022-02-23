@@ -34,4 +34,4 @@ def get_all_zaken():
     all_rows = cursor.fetchall()
     db.close()
     return all_rows
-    
+
