@@ -3,7 +3,7 @@ import sqlite3
 
 def create_zaak_table():
     db = sqlite3.connect("db.sqlite")
-    db.execute('''CREATE TABLE IF NOT EXISTS zaken(naam text)''')
+    db.execute('''CREATE TABLE IF NOT EXISTS zaken(id INTEGER PRIMARY KEY AUTOINCREMENT, naam text)''')
     db.commit()
     db.close()
 
@@ -11,7 +11,7 @@ def create_zaak_table():
 def create_zaak(naam):
     db = sqlite3.connect("db.sqlite")
     cursor = db.cursor()
-    cursor.execute(f"INSERT INTO zaken VALUES('{naam}')")
+    cursor.execute('INSERT INTO zaken(naam) VALUES(?)', (naam,))
     db.commit()
     db.close()
     message = 'De nieuwe zaak is toegevoegd.'
