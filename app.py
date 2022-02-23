@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
-from os.path import join, dirname, realpath
 from our_functions.coordinates import get_coordinates
 import folium
 
@@ -14,7 +13,7 @@ app.config['UPLOAD_FOLDER'] =  UPLOAD_FOLDER
 
 @app.route('/upload')
 def index():
-     # Set The upload HTML template '\templates\index.html'
+    # Set The upload HTML template '\templates\index.html'
     return render_template('upload.html')
 
 
@@ -37,7 +36,17 @@ def hello_world():
     middle = (len(coordinaten))
     middle = int(middle / 2)
     start_coords = coordinaten[middle]
-    folium_map = folium.Map(location=start_coords, zoom_start=17)
+    folium_map = folium.Map(
+                            location=start_coords,
+                            zoom_start=17)
+
+    folium.TileLayer(
+        tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        attr = 'Esri',
+        name = 'Esri Satellite',
+        overlay = False,
+        control = True
+        ).add_to(folium_map)
 
     folium.Marker(
         location=coordinaten[0],
