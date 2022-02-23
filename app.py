@@ -11,8 +11,14 @@ UPLOAD_FOLDER = 'data'
 app.config['UPLOAD_FOLDER'] =  UPLOAD_FOLDER
 
 
-@app.route('/upload')
+@app.route('/')
 def index():
+    # Set The upload HTML template '\templates\index.html'
+    return render_template('index.html')
+
+
+@app.route('/upload')
+def upload():
     # Set The upload HTML template '\templates\index.html'
     return render_template('upload.html')
 
@@ -30,8 +36,8 @@ def uploadFiles():
     return redirect(url_for('index'))
 
 
-@app.route("/")
-def hello_world():
+@app.route("/map")
+def map():
     coordinaten = get_coordinates()
     middle = (len(coordinaten))
     middle = int(middle / 2)
@@ -54,7 +60,6 @@ def hello_world():
         icon=folium.Icon(color="green"),
     ).add_to(folium_map)
 
-
     folium.Marker(
         location=coordinaten[-1],
         popup="Eind",
@@ -64,7 +69,7 @@ def hello_world():
     folium.PolyLine(
         locations=coordinaten,
         color="red",
-        weight=12.5,
+        weight=10,
         opacity=1
     ).add_to(folium_map)
     return folium_map._repr_html_()
