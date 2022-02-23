@@ -1,4 +1,6 @@
 from flask import Flask
+from our_functions.coordinates import get_coordinates
+
 
 app = Flask(__name__)
 
