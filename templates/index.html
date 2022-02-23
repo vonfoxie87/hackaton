@@ -12,9 +12,11 @@
     </div>
 
     {% if zaken %}
-        {% for zaak in zaken %}
-        <p>{{ zaak[0] }}</p>
-        {% endfor %}
+        <ul class="list-group">
+            {% for zaak in zaken %}
+                <li class="list-group-item">{{ zaak[0] }}</li>
+            {% endfor %}
+        </ul>   
     {% else %}
         Er zijn nog geen zaken toegevoegd
     {% endif %}
