@@ -19,15 +19,13 @@ def hello_world():
         popup="Start",
         icon=folium.Icon(color="green"),
     ).add_to(folium_map)
-    folium_map
+
 
     folium.Marker(
         location=coordinaten[-1],
         popup="Eind",
         icon=folium.Icon(color="red"),
     ).add_to(folium_map)
-    folium_map
-
 
     folium.PolyLine(
         locations=coordinaten,
@@ -35,11 +33,7 @@ def hello_world():
         weight=2.5,
         opacity=1
     ).add_to(folium_map)
-    folium_map
-
     return folium_map._repr_html_()
-
-
 
 # set FLASK_APP=app
 # set FLASK_ENV=development
