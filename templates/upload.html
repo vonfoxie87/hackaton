@@ -2,13 +2,19 @@
 
 
 {% block content %}
-    <h1>{% block title %} Index {% endblock %}</h1>
+    <h1></h1>
 
-    <h1>Upload your CSV file</h1>
-    <form method="POST" action="" enctype="multipart/form-data">
-      <p><input type="file" name="file"></p>
-      <p><input type="submit" value="Submit"></p>
-    </form>
+    <h1>{% block title %} Upload {% endblock %} your CSV file</h1><br>
+    <div class="row">
+        <div class="col-md-4">
+            <form method="POST" action="" enctype="multipart/form-data">
+                <p><input type="file" name="file" accept=".csv"></p>
+                <p><input type="submit" value="Submit"></p>
+              </form>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
 
 
+    </div>
 {% endblock %}
