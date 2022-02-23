@@ -4,5 +4,9 @@
 {% block content %}
     <h1>{% block title %}Overzicht zaken{% endblock %}</h1>
 
-    hier komt het overzicht van alle zaken
-{% endblock %}  
+    {% if zaken == "" %}
+        {{ zaken }}
+    {% else %}
+        Er zijn nog geen zaken toegevoegd
+    {% endif %}
+{% endblock %}

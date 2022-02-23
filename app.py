@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, request
 import os
 from our_functions.coordinates import get_coordinates
+from our_functions.zaken import create_zaak, get_all_zaken
 import folium
 
 
@@ -13,8 +14,10 @@ app.config['UPLOAD_FOLDER'] =  UPLOAD_FOLDER
 
 @app.route('/')
 def index():
-    # Set The upload HTML template '\templates\index.html'
-    return render_template('index.html')
+    if request.method == 'POST':
+        create_zaak()
+    zaken = get_all_zaken()
+    return render_template('index.html', zaken=zaken)
 
 
 @app.route('/map_folium')
