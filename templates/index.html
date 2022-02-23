@@ -3,23 +3,24 @@
 
 {% block content %}
     <h1>{% block title %}Overzicht zaken{% endblock %}</h1>
-
-    <div class="col-md-12" style="margin-top: 25px;">
+    <div class="row">
+    <div class="col-md-10" style="margin-top: 25px;">
         <form action="/" method="POST" name="create-zaak">
             <input name="naam_zaak" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zaak in" aria-label=".form-control-lg example">
-            <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
-        </form>
     </div>
+    <div class="col-md-2" style="margin-top: 25px;">
+    <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
+    </form>
+    </div>
+</div>
 <table>
     
     {% if zaken %}
-        {% for zaak in zaken %}
-        <tr>
-            <td>{{ zaak[0] }}</td>
-        </tr>
-        {% endfor %}
-</table>
-
+        <ul class="list-group">
+            {% for zaak in zaken %}
+                <li class="list-group-item"><a href="/zaak?zaak=">{{ zaak[0] }} - {{ zaak[1] }}</a></li>
+            {% endfor %}
+        </ul>   
     {% else %}
         Er zijn nog geen zaken toegevoegd
     {% endif %}

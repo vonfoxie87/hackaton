@@ -3,7 +3,7 @@ import sqlite3
 
 def create_zaak_table():
     db = sqlite3.connect("db.sqlite")
-    db.execute('''CREATE TABLE IF NOT EXISTS zaken(id INTEGER PRIMARY KEY AUTOINCREMENT, naam text)''')
+    db.execute('''CREATE TABLE IF NOT EXISTS zaken(id INTEGER PRIMARY KEY AUTOINCREMENT, naam TEXT)''')
     db.commit()
     db.close()
 
