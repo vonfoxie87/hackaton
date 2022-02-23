@@ -14,7 +14,7 @@
     {% if zaken %}
         <ul class="list-group">
             {% for zaak in zaken %}
-                <li class="list-group-item"><a href="/zaak?zaak=">{{ zaak[0] }} - {{ zaak[1] }}</a></li>
+                <li class="list-group-item"><a href="/zaak?zaak={{zaak[0]}}">{{ zaak[0] }} - {{ zaak[1] }}</a></li>
             {% endfor %}
         </ul>   
     {% else %}

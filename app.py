@@ -21,6 +21,11 @@ def index():
     zaken = get_all_zaken()
     return render_template('index.html', zaken=zaken)
 
+@app.route('/zaak/<id>')
+def zaak(id):
+    #  zaak ophalen
+    # template maken
+    return render_template('zaak.html')
 
 @app.route('/map_folium')
 def folium_map():
