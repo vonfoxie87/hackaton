@@ -17,6 +17,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/map_folium')
+def folium_map():
+    return render_template('map_folium.html')
+
+
 @app.route('/upload')
 def upload():
     # Set The upload HTML template '\templates\index.html'
@@ -28,11 +33,15 @@ def upload():
 def uploadFiles():
     # get the uploaded file
     uploaded_file = request.files['file']
+
     if uploaded_file.filename != '':
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
-        # set the file path
-        uploaded_file.save(file_path)
-        # save the file
+        if uploaded_file.filename[-3:] == "csv" or uploaded_file.filename[-3:] == "CSV":
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+            # set the file path
+            uploaded_file.save(file_path)
+            # save the file
+        else:
+            print('error')
     return redirect(url_for('index'))
 
 
@@ -44,14 +53,16 @@ def map():
     start_coords = coordinaten[middle]
     folium_map = folium.Map(
                             location=start_coords,
+                            height='100%',
+                            width='100%',
                             zoom_start=17)
 
     folium.TileLayer(
-        tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        attr = 'Esri',
-        name = 'Esri Satellite',
-        overlay = False,
-        control = True
+        tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        attr='Esri',
+        name='Esri Satellite',
+        overlay=False,
+        control=True
         ).add_to(folium_map)
 
     folium.Marker(
@@ -72,7 +83,9 @@ def map():
         weight=10,
         opacity=1
     ).add_to(folium_map)
-    return folium_map._repr_html_()
+    folium_map.save('templates/map_folium.html')
+    return render_template('map.html')
+    #return folium_map._repr_html_()
 
 # set FLASK_APP=app
 # set FLASK_ENV=development
