@@ -1,5 +1,8 @@
 from flask import Flask, render_template
 from our_functions.coordinates import get_coordinates
+import folium
+
+
 
 
 app = Flask(__name__)
@@ -8,7 +11,10 @@ app = Flask(__name__)
 def hello_world():
     test = get_coordinates()
     print(test)
-    return render_template('index.html')
+
+    start_coords = (46.9540700, 142.7360300)
+    folium_map = folium.Map(location=start_coords, zoom_start=14)
+    return folium_map._repr_html_()
 
 
 
