@@ -9,5 +9,4 @@ def get_coordinates():
     df_records = df.to_records(index=False)
     # maak de list
     df_list = list(df_records)
-
     return df_list
