@@ -8,20 +8,31 @@ app = Flask(__name__)
 @app.route("/")
 def hello_world():
     coordinaten = get_coordinates()
-
-    start_coords = (51.9066667, 4.188611111111111)
+    middle = (len(coordinaten))
+    middle = int(middle / 2)
+    print(middle)
+    start_coords = coordinaten[0]
     folium_map = folium.Map(location=start_coords, zoom_start=17)
 
 
     folium.Marker(
-        location=(51.9066667, 4.188611111111111),
+        location=coordinaten[0],
         popup="Start",
         icon=folium.Icon(color="green"),
     ).add_to(folium_map)
     folium_map
 
+
+    folium.Marker(
+        location=coordinaten[-1],
+        popup="Start",
+        icon=folium.Icon(color="red"),
+    ).add_to(folium_map)
+    folium_map
+
+
     folium.PolyLine(
-        locations=[(51.9066667,4.188611111111111),(51.9044444,4.184166666666667)],
+        locations=coordinaten,
         color="red",
         weight=2.5,
         opacity=1
