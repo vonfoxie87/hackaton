@@ -10,7 +10,6 @@ def hello_world():
     coordinaten = get_coordinates()
     middle = (len(coordinaten))
     middle = int(middle / 2)
-    print(middle)
     start_coords = coordinaten[middle]
     folium_map = folium.Map(location=start_coords, zoom_start=17)
 
