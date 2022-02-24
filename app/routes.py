@@ -29,7 +29,7 @@ def zaak(id):
     message = ''
     if request.method == 'POST':
         naam = request.form.get('naam')
-        zoek_patroon = request.form.get('naam')
+        zoek_patroon = request.form.get('zoek_patroon')
         zoek_datum = request.form.get('zoek_datum')
         file_zoek = request.form.get('file_zoekpatroon')
         uploaded_file = request.files['file_zoekpatroon']
