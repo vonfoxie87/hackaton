@@ -13,9 +13,10 @@
 {% if message != "" %}
     <div style="margin-bottom: 25px; background-color: #fffed4; padding: 25px; border-radius: 15px">{{message}}</div>
 {% endif %}
-    {% if zoekingen %}
+    
     <div class="row">
         <div class="col-md-5" style="margin-top: 25px;">
+            {% if zoekingen %}
             <table class="table">
                 <tr>
                     <td>#</td>
