@@ -17,7 +17,8 @@ def index():
     create_zaak_table()
     if request.method == 'POST':
         naam = request.form.get('naam_zaak')
-        create_zaak(naam)
+        bvh = request.form.get('bvh_zaak')
+        create_zaak(naam, bvh)
     zaken = get_all_zaken()
     return render_template('index.html', zaken=zaken)
 

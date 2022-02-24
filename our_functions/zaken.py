@@ -16,10 +16,10 @@ def create_zaak_table():
     db.close()
 
 
-def create_zaak(naam):
+def create_zaak(naam, bvh):
     db = sqlite3.connect("db.sqlite")
     cursor = db.cursor()
-    cursor.execute('INSERT INTO zaken(naam) VALUES(?)', (naam,))
+    cursor.execute('INSERT INTO zaken(naam, bvh) VALUES(?, ?)', (naam, bvh))
     db.commit()
     db.close()
     message = 'De nieuwe zaak is toegevoegd.'
