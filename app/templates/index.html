@@ -17,6 +17,9 @@
     </div>
 </div>
     <br>
+{% if message != "" %}
+    <div style="margin-bottom: 25px; background-color: #fffed4; padding: 25px; border-radius: 15px">{{message}}</div>
+{% endif %}
     <h2>{% block title %}Overzicht zaken{% endblock %}</h2>
     {% if zaken %}
     <div class="row">
@@ -30,7 +33,7 @@
                 {% for zaak in zaken %}
                 <tr>
                     <td>{{ zaak[0] }}</td>
-                    <td><a href="/zaak/{{zaak[0]}}">{{ zaak[1] }}</td>
+                    <td><a href="{{ url_for('zaak', id=zaak.id) }}">{{ zaak.naam }}</td>
                     <td>{{ zaak[2] }}</td>
                     </tr>
                 {% endfor %}
@@ -40,8 +43,5 @@
             {% endif %}
         </div>
     </div>
-    
 
-
-{% endblock %}
 

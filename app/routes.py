@@ -1,47 +1,38 @@
-from flask import Flask, render_template, request, redirect, url_for
-import os
+from app import app, db
+from app.models import Zaak, Zoeking
+from flask import render_template, request, redirect, url_for, request
 from our_functions.coordinates import get_coordinates
-from our_functions.zaken import create_zaak, create_zaak_table, get_all_zaken, create_zoekpatroon, get_zoekpatronen
 import folium
-
-
-app = Flask(__name__)
-
-
-UPLOAD_FOLDER = 'data'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+import os
 
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    create_zaak_table()
+    message = ''
     if request.method == 'POST':
         naam = request.form.get('naam_zaak')
         bvh = request.form.get('bvh_zaak')
-        create_zaak(naam, bvh)
     zaken = get_all_zaken()
     return render_template('index.html', zaken=zaken)
 
 
 @app.route('/zaak/<id>', methods=['POST', 'GET'])
 def zaak(id):
-    id = id
-    create_zaak_table()
+    message = ''
     if request.method == 'POST':
-        id_zoek = request.form.get('id_zoekpatroon')
-        naam = request.form.get('naam')
-        naam_zoek = request.form.get('naam_zoekpatroon')
-        datum_zoek = request.form.get('datum_zoekpatroon')
-        file_zoek = request.form.get('file_zoekpatroon')
-        uploaded_file = request.files['file_zoekpatroon']
-        if uploaded_file.filename != '':
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
-            file_zoek = uploaded_file.filename
-            uploaded_file.save(file_path)
-        create_zoekpatroon(id_zoek, naam, naam_zoek, datum_zoek, file_zoek)
-    zoek_patroon = get_zoekpatronen(id)
-    return render_template('zaak.html', zoek_patroon=zoek_patroon)
+        naam = request.form.get('naam_zoeking')
+        q = Zoeking(naam=naam, zaak_id=id)
+        db.session.add(q)
+        db.session.commit()
+        message = "De zoeking is opgeslagen"
+    zaak = Zaak.query.filter_by(id=id).first()
+    zoekingen = Zoeking.query.filter_by(zaak_id=id).all()
+    return render_template('zaak.html', zaak=zaak, zoekingen=zoekingen, message=message)
 
+@app.route('/zaak/<zaak>/zoeking/<id>')
+def zoeking(zaak, id):
+    zoeking = Zoeking.query.filter_by(id=id).first()
+    return render_template('zoeking.html', zoeking=zoeking)
 
 @app.route('/map_folium')
 def folium_map():
@@ -105,7 +96,7 @@ def map():
         weight=10,
         opacity=1
     ).add_to(folium_map)
-    folium_map.save('templates/map_folium.html')
+    folium_map.save('app/templates/map_folium.html')
     return render_template('map.html')
     #return folium_map._repr_html_()
 
