@@ -1,3 +1,4 @@
+from enum import unique
 from sqlalchemy import DateTime
 from app import db
 import datetime
@@ -17,8 +18,8 @@ class Zoeking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     naam = db.Column(db.String(100), unique=True, nullable=False)
     zoek_patroon = db.Column(db.String(100), unique=True, nullable=False)
-    zoek_datum = db.Column(DateTime, default=datetime.datetime.utcnow)
-    
+    zoek_datum = db.Column(db.String(100))
+    file_zoek = db.Column(db.String(100), unique=True, nullable=False)
     zaak_id = db.Column(db.Integer, db.ForeignKey('zaak.id'))
 
     def __repr__(self):

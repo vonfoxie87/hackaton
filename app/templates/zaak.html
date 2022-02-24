@@ -12,10 +12,10 @@
 </nav>
 
 <div class="col-md-4" style="margin-top: 25px;">
-    <form action="#" method="POST" name="create-zoeking" enctype="application/x-www-form-urlencoded">
+    <form action="#" method="POST" name="create-zoeking" enctype="multipart/form-data">
         <input name="zoek_patroon" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zoeking in" aria-label=".form-control-lg example">
-        <input name="zaak_id" class="form-control form-control-lg" type="hidden" placeholder="ID zoekpatroon" value="{{ zaak.id }}" aria-label=".form-control-lg example">
-        <input name="naam" class="form-control form-control-lg" type="hidden" placeholder="ID zoekpatroon" value="{{ zaak.naam }}" aria-label=".form-control-lg example">
+        <input name="zaak_id" class="form-control form-control-lg" type="text" placeholder="ID zoekpatroon" value="{{ zaak.id }}" aria-label=".form-control-lg example">
+        <input name="naam" class="form-control form-control-lg" type="text" placeholder="ID zoekpatroon" value="{{ zaak.naam }}" aria-label=".form-control-lg example">
         <input name="zoek_datum" class="form-control form-control-lg" type="date" placeholder="Datum zoekpatroon" aria-label=".form-control-lg example">
         <input name="file_zoekpatroon" class="form-control form-control-lg" type="file" accept=".csv">
 

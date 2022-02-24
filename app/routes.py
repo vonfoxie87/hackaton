@@ -28,15 +28,17 @@ def index():
 def zaak(id):
     message = ''
     if request.method == 'POST':
-        naam = request.form.get('naam_zoeking')
+        naam = request.form.get('naam')
+        zoek_patroon = request.form.get('naam')
         zoek_datum = request.form.get('zoek_datum')
+        file_zoek = request.form.get('file_zoekpatroon')
         uploaded_file = request.files['file_zoekpatroon']
-        file_zoek = request.form.get('file_zoek')
         if uploaded_file.filename != '':
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
             file_zoek = uploaded_file.filename
+            print(file_zoek)
             uploaded_file.save(file_path)
-        q = Zoeking(naam=naam, file_zoek=file_zoek, zoek_datum=zoek_datum, zaak_id=id)
+        q = Zoeking(naam=naam, zoek_patroon=zoek_patroon, file_zoek=file_zoek, zoek_datum=zoek_datum, zaak_id=id)
         db.session.add(q)
         db.session.commit()
         message = "De zoeking is opgeslagen"
@@ -67,9 +69,7 @@ def upload():
 # Get the uploaded files
 @app.route("/upload", methods=['POST'])
 def uploadFiles():
-    # get the uploaded file
     uploaded_file = request.files['file']
-
     if uploaded_file.filename != '':
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
         uploaded_file.save(file_path)
