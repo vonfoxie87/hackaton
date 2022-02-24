@@ -11,7 +11,8 @@ def index():
     message = ''
     if request.method == 'POST':
         naam = request.form.get('naam_zaak')
-        q = Zaak(naam=naam)
+        bvh = request.form.get('bvh_zaak')
+        q = Zaak(naam=naam, bvh=bvh)
         db.session.add(q)
         db.session.commit()
         message = "De zaak is opgeslagen"
