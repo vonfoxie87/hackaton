@@ -6,6 +6,10 @@ import folium
 import os
 
 
+UPLOAD_FOLDER = 'data'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     message = ''
@@ -18,6 +22,7 @@ def index():
         message = "De zaak is opgeslagen"
     zaken = Zaak.query.all()
     return render_template('index.html', zaken=zaken, message=message)
+
 
 @app.route('/zaak/<id>', methods=['POST', 'GET'])
 def zaak(id):
@@ -32,10 +37,12 @@ def zaak(id):
     zoekingen = Zoeking.query.filter_by(zaak_id=id).all()
     return render_template('zaak.html', zaak=zaak, zoekingen=zoekingen, message=message)
 
+
 @app.route('/zaak/<zaak>/zoeking/<id>')
 def zoeking(zaak, id):
     zoeking = Zoeking.query.filter_by(id=id).first()
     return render_template('zoeking.html', zoeking=zoeking)
+
 
 @app.route('/map_folium')
 def folium_map():
