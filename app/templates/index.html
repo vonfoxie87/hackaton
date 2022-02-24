@@ -4,34 +4,45 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-md-10" style="margin-top: 25px;">
+    <div class="col-md-5" style="margin-top: 25px;">
         <form action="/" method="POST" name="create-zaak">
-        <input name="naam_zaak" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zaak in" aria-label=".form-control-lg example">
+            <input name="naam_zaak" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zaak in" aria-label=".form-control-lg example">
     </div>
+    <div class="col-md-5" style="margin-top: 25px;"> 
+            <input name="bvh_zaak" class="form-control form-control-lg" type="text" placeholder="Voer een BVH nummer in" aria-label=".form-control-lg example">
+        </div>
     <div class="col-md-2" style="margin-top: 15px;">
         <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
         </form>
     </div>
 </div>
-<table>
     <br>
+{% if message != "" %}
+    <div style="margin-bottom: 25px; background-color: #fffed4; padding: 25px; border-radius: 15px">{{message}}</div>
+{% endif %}
     <h2>{% block title %}Overzicht zaken{% endblock %}</h2>
     {% if zaken %}
-        {% if message != "" %}
-            <div style="margin-bottom: 25px; background-color: #fffed4; padding: 25px; border-radius: 15px">{{message}}</div>
-        {% endif %}
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table">
+                <tr>
+                    <td>#</td>
+                    <td>Zaak</td>
+                    <td>BVH</td>
+                </tr>
+                {% for zaak in zaken %}
+                <tr>
+                    <td>{{ zaak.id }}</td>
+                    <td><a href="{{ url_for('zaak', id=zaak.id) }}">{{ zaak.naam }}</td>
+                    <td>{{ zaak.bvh }}</td>
+                    </tr>
+                {% endfor %}
+                </table>   
+                {% else %}
+                Er zijn nog geen zaken toegevoegd
+            {% endif %}
+        </div>
+    </div>
 
-        <ul class="list-group">
-            {% for zaak in zaken %}
-                <li class="list-group-item">
-                    <a type="button" class="btn btn-light position-relative" style="margin-right: 25px" href="{{ url_for('zaak', id=zaak.id) }}">{{ zaak.id }}</a>
-                    {{ zaak.naam }}
-                </li>
-            {% endfor %}
-        </ul>   
-    {% else %}
-        Er zijn nog geen zaken toegevoegd
-    {% endif %}
 
-{% endblock %}
-
+    {% endblock %}

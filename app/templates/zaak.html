@@ -11,9 +11,14 @@
     </ol>
 </nav>
 
-<div class="col-md-12" style="margin-top: 25px;">
+<div class="col-md-4" style="margin-top: 25px;">
     <form action="#" method="POST" name="create-zoeking">
-        <input name="naam_zoeking" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zoeking in" aria-label=".form-control-lg example">
+        <input name="zoek_patroon" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zoeking in" aria-label=".form-control-lg example">
+        <input name="zaak_id" class="form-control form-control-lg" type="hidden" placeholder="ID zoekpatroon" value="{{ zaak.id }}" aria-label=".form-control-lg example">
+        <input name="naam" class="form-control form-control-lg" type="hidden" placeholder="ID zoekpatroon" value="{{ zaak.naam }}" aria-label=".form-control-lg example">
+        <input name="zoek_datum" class="form-control form-control-lg" type="date" placeholder="Datum zoekpatroon" aria-label=".form-control-lg example">
+        <input name="file_zoekpatroon" class="form-control form-control-lg" type="file" accept=".csv">
+
         <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
     </form>
 </div>
