@@ -2,15 +2,20 @@
 
 
 {% block content %}
-    <h1>{% block title %}Overzicht zaken{% endblock %}</h1>
 
-    <div class="col-md-12" style="margin-top: 25px;">
+<div class="row">
+    <div class="col-md-10" style="margin-top: 25px;">
         <form action="/" method="POST" name="create-zaak">
-            <input name="naam_zaak" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zaak in" aria-label=".form-control-lg example">
-            <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
+        <input name="naam_zaak" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zaak in" aria-label=".form-control-lg example">
+    </div>
+    <div class="col-md-2" style="margin-top: 15px;">
+        <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
         </form>
     </div>
-
+</div>
+<table>
+    <br>
+    <h2>{% block title %}Overzicht zaken{% endblock %}</h2>
     {% if zaken %}
         {% if message != "" %}
             <div style="margin-bottom: 25px; background-color: #fffed4; padding: 25px; border-radius: 15px">{{message}}</div>
@@ -29,3 +34,4 @@
     {% endif %}
 
 {% endblock %}
+
