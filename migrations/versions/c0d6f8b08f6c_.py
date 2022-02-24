@@ -1,8 +1,8 @@
-"""initial
+"""empty message
 
-Revision ID: a4d6a16ed10e
+Revision ID: c0d6f8b08f6c
 Revises: 
-Create Date: 2022-02-23 21:20:01.085528
+Create Date: 2022-02-24 09:29:08.647793
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a4d6a16ed10e'
+revision = 'c0d6f8b08f6c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,16 +21,19 @@ def upgrade():
     op.create_table('zaak',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('naam', sa.String(length=100), nullable=False),
+    sa.Column('bvh', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('naam')
     )
     op.create_table('zoeking',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('naam', sa.String(length=100), nullable=False),
+    sa.Column('zoek_patroon', sa.String(length=100), nullable=False),
     sa.Column('zaak_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['zaak_id'], ['zaak.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('naam')
+    sa.UniqueConstraint('naam'),
+    sa.UniqueConstraint('zoek_patroon')
     )
     # ### end Alembic commands ###
 

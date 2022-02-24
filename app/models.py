@@ -1,5 +1,7 @@
-from sqlalchemy import PrimaryKeyConstraint
+from sqlalchemy import DateTime
 from app import db
+import datetime
+
 
 class Zaak(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -15,7 +17,7 @@ class Zoeking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     naam = db.Column(db.String(100), unique=True, nullable=False)
     zoek_patroon = db.Column(db.String(100), unique=True, nullable=False)
-
+    zoek_datum = db.Column(DateTime, default=datetime.datetime.utcnow)
     zaak_id = db.Column(db.Integer, db.ForeignKey('zaak.id'))
 
     def __repr__(self):
