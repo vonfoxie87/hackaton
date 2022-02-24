@@ -4,6 +4,8 @@ from flask import render_template, request
 import folium
 import os
 import pandas as pd
+from bs4 import BeautifulSoup
+import requests
 
 
 UPLOAD_FOLDER = 'data'
@@ -62,7 +64,7 @@ def zoeking(zaak, id):
                             location=start_coords,
                             height='100%',
                             width='100%',
-                            zoom_start=17)
+                            zoom_start=15)
 
     folium.TileLayer(
         tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -87,12 +89,11 @@ def zoeking(zaak, id):
     folium.PolyLine(
         locations=coordinaten,
         color="red",
-        weight=10,
+        weight=8,
         opacity=1
     ).add_to(folium_map)
     folium_map.save('app/templates/map_folium.html')
     return render_template('zoeking.html', zoeking=zoeking)
-
 
 
 @app.route('/map_folium')

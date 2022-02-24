@@ -17,13 +17,15 @@
     <div class="row">
         <div class="col-md-5" style="margin-top: 25px;">
             {% if zoekingen %}
-            <table class="table">
+            <table class="table striped table-hover">
+                <thead>
                 <tr>
-                    <td>#</td>
+                    <td></td>
                     <td>Zoekpatroon</td>
                     <td>Datum</td>
                     <td>Bestand</td>
                 </tr>
+                </thead>
                 {% for zoek in zoekingen %}
                 <tr>
                     <td>{{ zoek.id }}</td>
@@ -39,14 +41,19 @@
         </div>
         <div class="col-md-3"></div>
         <div class="col-md-4" style="margin-top: 25px;">
-            <form action="#" method="POST" name="create-zoeking" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Nieuw zoekpatroon:</h5><br>
+                <form action="#" method="POST" name="create-zoeking" enctype="multipart/form-data">
                 <input name="zoek_patroon" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zoeking in" aria-label=".form-control-lg example">
-                <input name="zaak_id" class="form-control form-control-lg" type="text" placeholder="ID zoekpatroon" value="{{ zaak.id }}" aria-label=".form-control-lg example">
-                <input name="naam" class="form-control form-control-lg" type="text" placeholder="ID zoekpatroon" value="{{ zaak.naam }}" aria-label=".form-control-lg example">
+                <input name="zaak_id" class="form-control form-control-lg" type="hidden" placeholder="ID zoekpatroon" value="{{ zaak.id }}" aria-label=".form-control-lg example">
+                <input name="naam" class="form-control form-control-lg" type="hidden" placeholder="ID zoekpatroon" value="{{ zaak.naam }}" aria-label=".form-control-lg example">
                 <input name="zoek_datum" class="form-control form-control-lg" type="date" placeholder="Datum zoekpatroon" aria-label=".form-control-lg example">
                 <input name="file_zoekpatroon" class="form-control form-control-lg" type="file" accept=".csv">
-                <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
+                <button type="submit" class="btn btn-outline-dark" style="margin-top: 15px">Aanmaken</button>
             </form>
+        </div>
+    </div>
         </div>
     </div>
 

@@ -8,12 +8,12 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Overzicht</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a href="{{ url_for('zaak', id=zoeking.zoekingen.id) }}">{{ zoeking.zoekingen.naam }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ zoeking.naam }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ zoeking.zoek_patroon }}</li>
 
         </ol>
     </nav>
-
-    <iframe width="100%" height="80%" id="frame1" src="{{ url_for('folium_map') }}"></iframe>
-
+    <div class="container" id='container'>
+        <iframe width="100%" height="80%" id="frame1" src="{{ url_for('folium_map') }}"></iframe>
+    </div>
 
 {% endblock %}
