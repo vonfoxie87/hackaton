@@ -23,10 +23,18 @@ def zaak(id):
     message = ''
     if request.method == 'POST':
         naam = request.form.get('naam_zoeking')
-        q = Zoeking(naam=naam, zaak_id=id)
+        zoek_datum = request.form.get('zoek_datum')
+        uploaded_file = request.files['file_zoekpatroon']
+        file_zoek = request.form.get('file_zoek')
+        if uploaded_file.filename != '':
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+            file_zoek = uploaded_file.filename
+            uploaded_file.save(file_path)
+        q = Zoeking(naam=naam, file_zoek=file_zoek, zoek_datum=zoek_datum, zaak_id=id)
         db.session.add(q)
         db.session.commit()
         message = "De zoeking is opgeslagen"
+        
     zaak = Zaak.query.filter_by(id=id).first()
     zoekingen = Zoeking.query.filter_by(zaak_id=id).all()
     return render_template('zaak.html', zaak=zaak, zoekingen=zoekingen, message=message)
@@ -35,6 +43,7 @@ def zaak(id):
 def zoeking(zaak, id):
     zoeking = Zoeking.query.filter_by(id=id).first()
     return render_template('zoeking.html', zoeking=zoeking)
+    
 
 @app.route('/map_folium')
 def folium_map():
