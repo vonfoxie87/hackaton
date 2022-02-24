@@ -4,6 +4,7 @@ from app import db
 class Zaak(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     naam = db.Column(db.String(100), unique=True, nullable=False)
+    bvh = db.Column(db.Integer)
     zoekingen = db.relationship('Zoeking', backref='zoekingen')
 
     def __repr__(self):
@@ -13,6 +14,8 @@ class Zaak(db.Model):
 class Zoeking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     naam = db.Column(db.String(100), unique=True, nullable=False)
+    zoek_patroon = db.Column(db.String(100), unique=True, nullable=False)
+
     zaak_id = db.Column(db.Integer, db.ForeignKey('zaak.id'))
 
     def __repr__(self):
