@@ -3,26 +3,51 @@
 
 {% block content %}
 
-<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb" style="margin-top: 25px; margin-left: 40px;">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Overzicht</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ zaak.naam }}</li>
 
     </ol>
 </nav>
-
-<div class="col-md-4" style="margin-top: 25px;">
-    <form action="#" method="POST" name="create-zoeking" enctype="multipart/form-data">
-        <input name="zoek_patroon" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zoeking in" aria-label=".form-control-lg example">
-        <input name="zaak_id" class="form-control form-control-lg" type="text" placeholder="ID zoekpatroon" value="{{ zaak.id }}" aria-label=".form-control-lg example">
-        <input name="naam" class="form-control form-control-lg" type="text" placeholder="ID zoekpatroon" value="{{ zaak.naam }}" aria-label=".form-control-lg example">
-        <input name="zoek_datum" class="form-control form-control-lg" type="date" placeholder="Datum zoekpatroon" aria-label=".form-control-lg example">
-        <input name="file_zoekpatroon" class="form-control form-control-lg" type="file" accept=".csv">
-
-        <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
-    </form>
-</div>
-
+{% if message != "" %}
+    <div style="margin-bottom: 25px; background-color: #fffed4; padding: 25px; border-radius: 15px">{{message}}</div>
+{% endif %}
+    {% if zoekingen %}
+    <div class="row">
+        <div class="col-md-5" style="margin-top: 25px;">
+            <table class="table">
+                <tr>
+                    <td>#</td>
+                    <td>Zoekpatroon</td>
+                    <td>Datum</td>
+                    <td>Bestand</td>
+                </tr>
+                {% for zoek in zoekingen %}
+                <tr>
+                    <td>{{ zoek.id }}</td>
+                    <td><a href="{{ url_for('zoeking', zaak=zaak.id, id=zoek.id, ) }}">{{ zoek.zoek_patroon }}</td>
+                    <td>{{ zoek.zoek_datum }}</td>
+                    <td>{{ zoek.file_zoek }}</td>
+                    </tr>
+                {% endfor %}
+                </table>   
+                {% else %}
+                Er zijn nog geen zaken toegevoegd
+            {% endif %}
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-4" style="margin-top: 25px;">
+            <form action="#" method="POST" name="create-zoeking" enctype="multipart/form-data">
+                <input name="zoek_patroon" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zoeking in" aria-label=".form-control-lg example">
+                <input name="zaak_id" class="form-control form-control-lg" type="text" placeholder="ID zoekpatroon" value="{{ zaak.id }}" aria-label=".form-control-lg example">
+                <input name="naam" class="form-control form-control-lg" type="text" placeholder="ID zoekpatroon" value="{{ zaak.naam }}" aria-label=".form-control-lg example">
+                <input name="zoek_datum" class="form-control form-control-lg" type="date" placeholder="Datum zoekpatroon" aria-label=".form-control-lg example">
+                <input name="file_zoekpatroon" class="form-control form-control-lg" type="file" accept=".csv">
+                <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
+            </form>
+        </div>
+    </div>
 
 
 {% endblock %}

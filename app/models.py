@@ -1,7 +1,5 @@
-from enum import unique
-from sqlalchemy import DateTime
+import sqlalchemy
 from app import db
-import datetime
 
 
 class Zaak(db.Model):
@@ -16,7 +14,7 @@ class Zaak(db.Model):
 
 class Zoeking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    naam = db.Column(db.String(100), unique=True, nullable=False)
+    naam = db.Column(db.String(100), nullable=False)
     zoek_patroon = db.Column(db.String(100), unique=True, nullable=False)
     zoek_datum = db.Column(db.String(100))
     file_zoek = db.Column(db.String(100), unique=True, nullable=False)
