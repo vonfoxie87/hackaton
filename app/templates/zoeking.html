@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+    <h1>{% block title %}Zoeking{% endblock %}</h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Overzicht</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="{{ url_for('zaak', id=zoeking.zoekingen.id) }}">{{ zoeking.zoekingen.naam }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ zoeking.naam }}</li>
+
+        </ol>
+    </nav>
+
+    <div class="col-md-12" style="margin-top: 25px;">
+        <form action="#" method="POST" name="create-zoeking">
+            <input name="naam_zoeking" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zoeking in" aria-label=".form-control-lg example">
+            <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
+        </form>
+    </div>
+
+{% endblock %}

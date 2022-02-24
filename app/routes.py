@@ -1,31 +1,40 @@
-from flask import Flask, render_template, request, redirect, url_for, request
-import os
+from app import app, db
+from app.models import Zaak, Zoeking
+from flask import render_template, request, redirect, url_for, request
 from our_functions.coordinates import get_coordinates
-from our_functions.zaken import create_zaak, create_zaak_table, get_all_zaken
 import folium
-
-
-app = Flask(__name__)
-
-
-UPLOAD_FOLDER = 'data'
-app.config['UPLOAD_FOLDER'] =  UPLOAD_FOLDER
+import os
 
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    create_zaak_table()
+    message = ''
     if request.method == 'POST':
         naam = request.form.get('naam_zaak')
-        create_zaak(naam)
-    zaken = get_all_zaken()
-    return render_template('index.html', zaken=zaken)
+        q = Zaak(naam=naam)
+        db.session.add(q)
+        db.session.commit()
+        message = "De zaak is opgeslagen"
+    zaken = Zaak.query.all()
+    return render_template('index.html', zaken=zaken, message=message)
 
-@app.route('/zaak/<id>')
+@app.route('/zaak/<id>', methods=['POST', 'GET'])
 def zaak(id):
-    #  zaak ophalen
-    # template maken
-    return render_template('zaak.html')
+    message = ''
+    if request.method == 'POST':
+        naam = request.form.get('naam_zoeking')
+        q = Zoeking(naam=naam, zaak_id=id)
+        db.session.add(q)
+        db.session.commit()
+        message = "De zoeking is opgeslagen"
+    zaak = Zaak.query.filter_by(id=id).first()
+    zoekingen = Zoeking.query.filter_by(zaak_id=id).all()
+    return render_template('zaak.html', zaak=zaak, zoekingen=zoekingen, message=message)
+
+@app.route('/zaak/<zaak>/zoeking/<id>')
+def zoeking(zaak, id):
+    zoeking = Zoeking.query.filter_by(id=id).first()
+    return render_template('zoeking.html', zoeking=zoeking)
 
 @app.route('/map_folium')
 def folium_map():
@@ -93,7 +102,7 @@ def map():
         weight=10,
         opacity=1
     ).add_to(folium_map)
-    folium_map.save('templates/map_folium.html')
+    folium_map.save('app/templates/map_folium.html')
     return render_template('map.html')
     #return folium_map._repr_html_()
 

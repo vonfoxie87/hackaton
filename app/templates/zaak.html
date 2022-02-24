@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+    <h1>{% block title %}Zaak{% endblock %}</h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Overzicht</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ zaak.naam }}</li>
+        </ol>
+    </nav>
+
+    <div class="col-md-12" style="margin-top: 25px;">
+        <form action="{{ url_for('zaak', id=zaak.id) }}" method="POST" name="create-zoeking">
+            <input name="naam_zoeking" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zoeking in" aria-label=".form-control-lg example">
+            <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
+        </form>
+    </div>
+
+    {% if zoekingen %}
+        {% if message != "" %}
+            <div style="margin-bottom: 25px; background-color: #fffed4; padding: 25px; border-radius: 15px">{{message}}</div>
+        {% endif %}
+
+        <ul class="list-group">
+            {% for zoeking in zoekingen %}
+                <li class="list-group-item">
+                    <a type="button" class="btn btn-light position-relative" style="margin-right: 25px" href="{{ url_for('zoeking', zaak=zoeking.zaak_id, id=zoeking.id) }}">{{ zoeking.id }}</a>
+                    {{ zoeking.naam }}
+                </li>
+            {% endfor %}
+        </ul>   
+    {% else %}
+        Er zijn nog geen zaken toegevoegd
+    {% endif %}
+
+
+{% endblock %}
