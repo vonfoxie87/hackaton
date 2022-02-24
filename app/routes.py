@@ -4,6 +4,7 @@ from flask import render_template, request, redirect, url_for, request
 from our_functions.coordinates import get_coordinates
 import folium
 import os
+import pandas as pd
 
 
 UPLOAD_FOLDER = 'data'
@@ -51,8 +52,50 @@ def zaak(id):
 @app.route('/zaak/<zaak>/zoeking/<id>')
 def zoeking(zaak, id):
     zoeking = Zoeking.query.filter_by(id=id).first()
+    data_csv = pd.read_csv(f'data/{zoeking.file_zoek}')
+    df = pd.DataFrame(data_csv)
+    df_records = df.to_records(index=False)
+    df_list = list(df_records)
+
+    coordinaten = df_list
+    middle = (len(coordinaten))
+    middle = int(middle / 2)
+    start_coords = coordinaten[middle]
+    folium_map = folium.Map(
+                            location=start_coords,
+                            height='100%',
+                            width='100%',
+                            zoom_start=17)
+
+    folium.TileLayer(
+        tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        attr='Esri',
+        name='Esri Satellite',
+        overlay=False,
+        control=True
+        ).add_to(folium_map)
+
+    folium.Marker(
+        location=coordinaten[0],
+        popup="Start",
+        icon=folium.Icon(color="green"),
+    ).add_to(folium_map)
+
+    folium.Marker(
+        location=coordinaten[-1],
+        popup="Eind",
+        icon=folium.Icon(color="red"),
+    ).add_to(folium_map)
+
+    folium.PolyLine(
+        locations=coordinaten,
+        color="red",
+        weight=10,
+        opacity=1
+    ).add_to(folium_map)
+    folium_map.save('app/templates/map_folium.html')
     return render_template('zoeking.html', zoeking=zoeking)
-    
+
 
 
 @app.route('/map_folium')
