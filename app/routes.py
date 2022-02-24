@@ -11,10 +11,12 @@ def index():
     message = ''
     if request.method == 'POST':
         naam = request.form.get('naam_zaak')
-        bvh = request.form.get('bvh_zaak')
-    zaken = get_all_zaken()
-    return render_template('index.html', zaken=zaken)
-
+        q = Zaak(naam=naam)
+        db.session.add(q)
+        db.session.commit()
+        message = "De zaak is opgeslagen"
+    zaken = Zaak.query.all()
+    return render_template('index.html', zaken=zaken, message=message)
 
 @app.route('/zaak/<id>', methods=['POST', 'GET'])
 def zaak(id):

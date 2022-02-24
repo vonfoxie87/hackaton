@@ -32,9 +32,9 @@
                 </tr>
                 {% for zaak in zaken %}
                 <tr>
-                    <td>{{ zaak[0] }}</td>
+                    <td>{{ zaak.id }}</td>
                     <td><a href="{{ url_for('zaak', id=zaak.id) }}">{{ zaak.naam }}</td>
-                    <td>{{ zaak[2] }}</td>
+                    <td>{{ zaak.bvh }}</td>
                     </tr>
                 {% endfor %}
                 </table>   
@@ -45,3 +45,4 @@
     </div>
 
 
+    {% endblock %}
