@@ -3,42 +3,26 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col-md-4" style="margin-top: 25px;">
-        <form action="/zaak/{{ zoek_patroon[0][0] }}" method="POST" name="create-zoekpatroon" enctype="multipart/form-data">
-            <input name="id_zoekpatroon" class="form-control form-control-lg" type="hidden" placeholder="ID zoekpatroon" value="{{ zoek_patroon[0][0] }}" aria-label=".form-control-lg example">
-            <input name="naam" class="form-control form-control-lg" type="hidden" placeholder="ID zoekpatroon" value="{{ zoek_patroon[0][1] }}" aria-label=".form-control-lg example">
-            <input name="naam_zoekpatroon" class="form-control form-control-lg" type="text" placeholder="Naam zoekpatroon" aria-label=".form-control-lg example">
-            <input name="datum_zoekpatroon" class="form-control form-control-lg" type="date" placeholder="Datum zoekpatroon" aria-label=".form-control-lg example">
-            <input name="file_zoekpatroon" class="form-control form-control-lg" type="file" accept=".csv">
-            <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
-        </form>
-    </div>
-    <div class="col-md-2" style="margin-top: 15px;"></div>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Overzicht</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ zaak.naam }}</li>
+
+    </ol>
+</nav>
+
+<div class="col-md-4" style="margin-top: 25px;">
+    <form action="#" method="POST" name="create-zoeking">
+        <input name="zoek_patroon" class="form-control form-control-lg" type="text" placeholder="Voer een nieuwe zoeking in" aria-label=".form-control-lg example">
+        <input name="zaak_id" class="form-control form-control-lg" type="hidden" placeholder="ID zoekpatroon" value="{{ zaak.id }}" aria-label=".form-control-lg example">
+        <input name="naam" class="form-control form-control-lg" type="hidden" placeholder="ID zoekpatroon" value="{{ zaak.naam }}" aria-label=".form-control-lg example">
+        <input name="zoek_datum" class="form-control form-control-lg" type="date" placeholder="Datum zoekpatroon" aria-label=".form-control-lg example">
+        <input name="file_zoekpatroon" class="form-control form-control-lg" type="file" accept=".csv">
+
+        <button type="submit" class="btn btn-primary" style="margin-top: 15px">Aanmaken</button>
+    </form>
 </div>
 
-<table class="table">
-    <tr>
-        <td>Onderzoek</td>
-        <td>BVH</td>
-        <td>Zoekpatroon</td>
-        <td>datum</td>
-        <td>bestand</td>
-    </tr>
 
-    {% if zoek_patroon is defined %}
-        {% for zaak in zoek_patroon %}
-            <tr>
-                <td>{{ zaak[1] }}</td>
-                <td>{{ zaak[2] }}</td>
-                <td><a href="/map/{{zaak[0]}}">{{ zaak[3] }}</a></td>
-                <td>{{ zaak[4] }}</td>
-                <td>{{ zaak[6] }}</td>
-            </tr>
-        {% endfor %}
-</table>
-    {% else %}
-    Er zijn nog geen zaken toegevoegd
-    {% endif %}
 
 {% endblock %}
